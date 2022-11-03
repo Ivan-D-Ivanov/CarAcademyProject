@@ -1,6 +1,10 @@
 using CarAcademyProject.CommandHandlers.CarHandlers;
 using CarAcademyProject.Extensions;
+using CarAcademyProject.HealthChecks;
+using CarAcademyProject.Middleware;
 using CarAcademyProjectModels.ConfigurationM;
+using FluentValidation;
+using FluentValidation.AspNetCore;
 using MediatR;
 using Serilog;
 using Serilog.Sinks.SystemConsole.Themes;
@@ -28,10 +32,19 @@ namespace CarAcademyProject
                             .RegisterServices()
                             .AddAutoMapper(typeof(Program));
 
+            builder.Services.AddFluentValidationAutoValidation()
+                            .AddFluentValidationClientsideAdapters();
+            builder.Services.AddValidatorsFromAssemblyContaining(typeof(Program));
+                            
+
             builder.Services.AddControllers();
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
+
+            builder.Services.AddHealthChecks()
+                .AddCheck<SqlHealthCheck>("Sql Server")
+                .AddUrlGroup(new Uri("https://google.bg"), name: "Google Connection");
 
             builder.Services.AddMediatR(typeof(AddCarCommandHandler).Assembly);
 
@@ -50,6 +63,9 @@ namespace CarAcademyProject
 
 
             app.MapControllers();
+
+            app.UseMiddleware<ErrorHandlingMiddleware>();
+            app.RegisterHealthChecks();
 
             app.Run();
         }
