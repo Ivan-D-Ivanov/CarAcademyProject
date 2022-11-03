@@ -18,6 +18,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\CarAcademyProjectBL\CarAcademyProjectBL.csproj" />
     <ProjectReference Include="..\CarAcademyProjectDL\CarAcademyProjectDL.csproj" />
     <ProjectReference Include="..\CarAcademyProjectModels\CarAcademyProjectModels.csproj" />
   </ItemGroup>
