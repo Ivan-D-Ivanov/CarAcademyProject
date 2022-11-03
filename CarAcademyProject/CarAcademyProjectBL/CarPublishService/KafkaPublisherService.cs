@@ -31,7 +31,7 @@ namespace CarAcademyProject.CarAcademyProjectBL.CarPublishService
                     Value = item
                 };
 
-                var result = await producer.ProduceAsync("ProducerPersonTopic", msg);
+                var result = await producer.ProduceAsync(_optionsMonitor.CurrentValue.TopicName, msg);
                 if (result == null) Console.WriteLine($"Deliver : {result.Value} to {result.TopicPartitionOffset}");
             }
             catch (ProduceException<TKey, TValue> e)

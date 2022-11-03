@@ -1,9 +1,9 @@
-﻿using CarAcademyProjectModels.MediatR.CarCommands;
+﻿using CarAcademyProject.CarAcademyProjectBL.CarPublishService;
 using CarAcademyProjectModels;
-using MediatR;
-using Microsoft.AspNetCore.Mvc;
 using CarAcademyProjectModels.MediatR.CarServiceCommands;
 using CarAcademyProjectModels.Request;
+using MediatR;
+using Microsoft.AspNetCore.Mvc;
 
 namespace CarAcademyProject.Controllers
 {
@@ -13,12 +13,14 @@ namespace CarAcademyProject.Controllers
     {
         private readonly ILogger<CarServiceController> _logger;
         private readonly IMediator _mediator;
+        private readonly IKafkaPublisherService<int, CarService> _kafkaPublisherService;
 
 
-        public CarServiceController(ILogger<CarServiceController> logger, IMediator mediator)
+        public CarServiceController(ILogger<CarServiceController> logger, IMediator mediator, IKafkaPublisherService<int, CarService> kafkaPublisherService)
         {
             _logger = logger;
             _mediator = mediator;
+            _kafkaPublisherService = kafkaPublisherService;
         }
 
         [HttpGet(nameof(GetCarServices))]
