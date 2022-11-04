@@ -1,4 +1,5 @@
 ﻿using CarAcademyProject.CarAcademyProjectBL.CarPublishService;
+using CarAcademyProjectBL.BusinesService;
 using CarAcademyProjectBL.DataFlowService;
 using CarAcademyProjectBL.Services;
 using CarAcademyProjectModels.Request;
@@ -9,6 +10,7 @@ namespace CarAcademyProject.Extensions
     {
         public static IServiceCollection RegisterServices(this IServiceCollection services)
         {
+            services.AddSingleton<IRepostService, ReportService>();
             services.AddSingleton<IKafkaPublisherService<int, PublishCarServiceRequest>, KafkaPublisherService<int, PublishCarServiceRequest>>();
             services.AddSingleton<ConsumerService<int, PublishCarServiceRequest>>();
             services.AddSingleton<CarServiceDataFlow>();
