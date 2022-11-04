@@ -2,10 +2,10 @@
 using CarAcademyProjectDL.RepoInterfaces;
 using CarAcademyProjectModels;
 using CarAcademyProjectModels.ConfigurationM;
-using Dapper;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
+using Dapper;
 
 namespace CarAcademyProjectDL.Repositories
 {

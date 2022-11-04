@@ -10,6 +10,7 @@ namespace CarAcademyProject.AutoMapping
         {
             CreateMap<AddCarRequest, Car>();
             CreateMap<ClientRequest, Client>();
+            CreateMap<PublishCarServiceRequest, CarServiceRquest>();
         }
     }
 }
