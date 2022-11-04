@@ -1,6 +1,7 @@
 ﻿using CarAcademyProject.CarAcademyProjectBL.CarPublishService;
 using CarAcademyProjectModels;
 using CarAcademyProjectModels.MediatR.CarServiceCommands;
+using CarAcademyProjectModels.MediatR.KafkaCommands;
 using CarAcademyProjectModels.Request;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
@@ -13,14 +14,12 @@ namespace CarAcademyProject.Controllers
     {
         private readonly ILogger<CarServiceController> _logger;
         private readonly IMediator _mediator;
-        private readonly IKafkaPublisherService<int, CarService> _kafkaPublisherService;
 
 
-        public CarServiceController(ILogger<CarServiceController> logger, IMediator mediator, IKafkaPublisherService<int, CarService> kafkaPublisherService)
+        public CarServiceController(ILogger<CarServiceController> logger, IMediator mediator)
         {
             _logger = logger;
             _mediator = mediator;
-            _kafkaPublisherService = kafkaPublisherService;
         }
 
         [HttpGet(nameof(GetCarServices))]
@@ -30,10 +29,9 @@ namespace CarAcademyProject.Controllers
         }
 
         [HttpPost(nameof(AddCarService))]
-        public async Task<IActionResult> AddCarService(CarServiceRquest carService)
+        public async Task<IActionResult> AddCarService(PublishCarServiceRequest carService)
         {
-            //Add KafkaPublisher insted of directly saving to database
-            var result = await _mediator.Send(new AddCarServiceCommand(carService));
+            var result = await _mediator.Send(new PublishCarServiceCommand(carService));
             return Ok(result);
         }
     }

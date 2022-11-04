@@ -2,6 +2,7 @@ using CarAcademyProject.CommandHandlers.CarHandlers;
 using CarAcademyProject.Extensions;
 using CarAcademyProject.HealthChecks;
 using CarAcademyProject.Middleware;
+using CarAcademyProjectBL.BackGroundServices;
 using CarAcademyProjectModels.ConfigurationM;
 using FluentValidation;
 using FluentValidation.AspNetCore;
@@ -26,6 +27,10 @@ namespace CarAcademyProject
 
             builder.Services.Configure<ConnectionStrings>(
                 builder.Configuration.GetSection(nameof(ConnectionStrings)));
+            builder.Services.Configure<KafkaPublisherSettings>(
+                builder.Configuration.GetSection(nameof(KafkaPublisherSettings)));
+            builder.Services.Configure<KafkaConsumerSettings>(
+                builder.Configuration.GetSection(nameof(KafkaConsumerSettings)));
 
             // Add services to the container.
             builder.Services.RegisterRepositories()
@@ -47,6 +52,8 @@ namespace CarAcademyProject
                 .AddUrlGroup(new Uri("https://google.bg"), name: "Google Connection");
 
             builder.Services.AddMediatR(typeof(AddCarCommandHandler).Assembly);
+
+            builder.Services.AddHostedService<KafkaCarServiceSubscriber>();
 
             var app = builder.Build();
 
