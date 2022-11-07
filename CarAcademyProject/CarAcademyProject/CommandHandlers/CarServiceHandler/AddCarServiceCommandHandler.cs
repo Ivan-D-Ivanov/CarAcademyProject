@@ -34,7 +34,7 @@ namespace CarAcademyProject.CommandHandlers.CarServiceHandler
                 ClientId = client.Id,
                 CarId = car.Id,
                 StartDate = DateTime.UtcNow,
-                EndDate = DateTime.UtcNow.AddDays(5),
+                EndDate = DateTime.UtcNow.AddDays(1),
                 ManipulationDescription = request._carService.ManipulationDescription,
                 MDifficult = request._carService.MDifficult 
             };

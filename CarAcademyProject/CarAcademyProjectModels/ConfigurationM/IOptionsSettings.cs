@@ -1,6 +1,6 @@
 ﻿namespace CarAcademyProjectModels.ConfigurationM
 {
-    public class KafkaPublisherSettings : IOptionsSettings
+    public interface IOptionsSettings
     {
         public string BootstrapServers { get; set; }
 

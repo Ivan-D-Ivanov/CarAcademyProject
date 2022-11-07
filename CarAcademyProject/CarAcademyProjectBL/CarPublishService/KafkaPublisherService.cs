@@ -7,10 +7,10 @@ namespace CarAcademyProject.CarAcademyProjectBL.CarPublishService
 {
     public class KafkaPublisherService<TKey, TValue> : IKafkaPublisherService<TKey, TValue>
     {
-        private readonly IOptionsMonitor<KafkaPublisherSettings> _optionsMonitor;
+        private readonly IOptionsMonitor<IOptionsSettings> _optionsMonitor;
         private ProducerConfig _producerConfig;
 
-        public KafkaPublisherService(IOptionsMonitor<KafkaPublisherSettings> optionsMonitor)
+        public KafkaPublisherService(IOptionsMonitor<IOptionsSettings> optionsMonitor)
         {
             _optionsMonitor = optionsMonitor;
             _producerConfig = new ProducerConfig() { BootstrapServers = _optionsMonitor.CurrentValue.BootstrapServers };

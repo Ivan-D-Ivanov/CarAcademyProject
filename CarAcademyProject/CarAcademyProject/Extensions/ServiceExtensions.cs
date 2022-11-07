@@ -11,8 +11,6 @@ namespace CarAcademyProject.Extensions
         public static IServiceCollection RegisterServices(this IServiceCollection services)
         {
             services.AddSingleton<IRepostService, ReportService>();
-            services.AddSingleton<IKafkaPublisherService<int, PublishCarServiceRequest>, KafkaPublisherService<int, PublishCarServiceRequest>>();
-            services.AddSingleton<ConsumerService<int, PublishCarServiceRequest>>();
             services.AddSingleton<CarServiceDataFlow>();
             return services;
         }

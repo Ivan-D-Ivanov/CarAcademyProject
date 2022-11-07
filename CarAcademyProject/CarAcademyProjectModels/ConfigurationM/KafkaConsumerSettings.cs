@@ -1,6 +1,6 @@
 ﻿namespace CarAcademyProjectModels.ConfigurationM
 {
-    public class KafkaConsumerSettings
+    public class KafkaConsumerSettings : IOptionsSettings
     {
         public string BootstrapServers { get; set; }
 
