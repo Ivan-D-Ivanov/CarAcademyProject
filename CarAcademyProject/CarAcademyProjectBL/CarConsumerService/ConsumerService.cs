@@ -7,11 +7,11 @@ namespace CarAcademyProjectBL.Services
 {
     public class ConsumerService<TKey, TValue>
     {
-        private readonly IOptionsMonitor<KafkaConsumerSettings> _subSettings;
+        private readonly IOptionsMonitor<IOptionsSettings> _subSettings;
         private IConsumer<TKey, TValue> _consumer;
         private ConsumerConfig _consumerConfig;
 
-        public ConsumerService(IOptionsMonitor<KafkaConsumerSettings> subSettings)
+        public ConsumerService(IOptionsMonitor<IOptionsSettings> subSettings)
         {
             _subSettings = subSettings;
             _consumerConfig = new ConsumerConfig

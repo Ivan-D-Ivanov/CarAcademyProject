@@ -31,6 +31,8 @@ namespace CarAcademyProject
                 builder.Configuration.GetSection(nameof(KafkaPublisherSettings)));
             builder.Services.Configure<KafkaConsumerSettings>(
                 builder.Configuration.GetSection(nameof(KafkaConsumerSettings)));
+            builder.Services.Configure<HighLevelCarPublisherSettings>(
+                builder.Configuration.GetSection(nameof(HighLevelCarPublisherSettings)));
 
             // Add services to the container.
             builder.Services.RegisterRepositories()
@@ -43,7 +45,7 @@ namespace CarAcademyProject
                             
 
             builder.Services.AddControllers();
-            // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
+            
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
 

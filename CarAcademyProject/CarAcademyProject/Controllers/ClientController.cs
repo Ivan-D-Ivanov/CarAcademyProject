@@ -1,10 +1,8 @@
-﻿using CarAcademyProjectModels.MediatR.CarCommands;
+﻿using CarAcademyProjectModels;
+using CarAcademyProjectModels.MediatR.ClientCommands;
 using CarAcademyProjectModels.Request;
-using CarAcademyProjectModels;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
-using CarAcademyProjectModels.MediatR.ClientCommands;
-using CarAcademyProject.CommandHandlers.ClientHandlers;
 
 namespace CarAcademyProject.Controllers
 {

@@ -1,8 +1,10 @@
 ﻿using CarAcademyProjectBL.DataFlowService;
 using CarAcademyProjectBL.Services;
+using CarAcademyProjectModels.ConfigurationM;
 using CarAcademyProjectModels.Request;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Options;
 
 namespace CarAcademyProjectBL.BackGroundServices
 {
@@ -11,16 +13,15 @@ namespace CarAcademyProjectBL.BackGroundServices
         private readonly ConsumerService<int, PublishCarServiceRequest> _consumerService;
         private readonly ILogger<KafkaCarServiceSubscriber> _logger;
         private readonly CarServiceDataFlow _carServiceDataFlow;
+        private readonly IOptionsMonitor<KafkaConsumerSettings> _consumerSettings;
 
 
-        public KafkaCarServiceSubscriber(ConsumerService<int,
-            PublishCarServiceRequest> consumerService,
-            ILogger<KafkaCarServiceSubscriber> logger,
-            CarServiceDataFlow carServiceDataFlow)
+        public KafkaCarServiceSubscriber(ILogger<KafkaCarServiceSubscriber> logger, CarServiceDataFlow carServiceDataFlow, IOptionsMonitor<KafkaConsumerSettings> consumerSettings)
         {
-            _consumerService = consumerService;
             _logger = logger;
             _carServiceDataFlow = carServiceDataFlow;
+            _consumerSettings = consumerSettings;
+            _consumerService = new ConsumerService<int, PublishCarServiceRequest>(_consumerSettings);
         }
 
         public Task StartAsync(CancellationToken cancellationToken)
@@ -40,7 +41,7 @@ namespace CarAcademyProjectBL.BackGroundServices
 
         public Task StopAsync(CancellationToken cancellationToken)
         {
-            throw new NotImplementedException();
+            return Task.CompletedTask;
         }
     }
 }

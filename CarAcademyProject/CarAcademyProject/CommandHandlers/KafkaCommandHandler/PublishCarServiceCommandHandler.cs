@@ -1,9 +1,11 @@
 ﻿using CarAcademyProject.CarAcademyProjectBL.CarPublishService;
 using CarAcademyProjectDL.RepoInterfaces;
+using CarAcademyProjectModels.ConfigurationM;
 using CarAcademyProjectModels.MediatR.KafkaCommands;
 using CarAcademyProjectModels.Request;
 using CarAcademyProjectModels.Response;
 using MediatR;
+using Microsoft.Extensions.Options;
 
 namespace CarAcademyProject.CommandHandlers.KafkaCommandHandler
 {
@@ -12,12 +14,14 @@ namespace CarAcademyProject.CommandHandlers.KafkaCommandHandler
         private readonly IKafkaPublisherService<int, PublishCarServiceRequest> _kafkaPublisher;
         private readonly ICarRepository _carRepository;
         private readonly IClientRepository _clientRepository;
+        private readonly IOptionsMonitor<KafkaPublisherSettings> _kafkaSettings;
 
-        public PublishCarServiceCommandHandler(IKafkaPublisherService<int, PublishCarServiceRequest> kafkaPublisher, IClientRepository clientRepository, ICarRepository carRepository)
+        public PublishCarServiceCommandHandler(IClientRepository clientRepository, ICarRepository carRepository, IOptionsMonitor<KafkaPublisherSettings> kafkaSettings)
         {
-            _kafkaPublisher = kafkaPublisher;
+            _kafkaSettings = kafkaSettings;
             _clientRepository = clientRepository;
             _carRepository = carRepository;
+            _kafkaPublisher = new KafkaPublisherService<int, PublishCarServiceRequest>(_kafkaSettings);
         }
 
         public async Task<CarServiceResponse> Handle(PublishCarServiceCommand request, CancellationToken cancellationToken)
