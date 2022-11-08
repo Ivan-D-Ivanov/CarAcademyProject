@@ -11,12 +11,18 @@ namespace CarAcademyProject.CommandHandlers.CarServiceHandler
         private readonly ICarServiceRepository _carServiceRepository;
         private readonly ICarRepository _carRepository;
         private readonly IClientRepository _clientRepository;
+        private readonly ILogger<AddCarServiceCommandHandler> _logger;
 
-        public AddCarServiceCommandHandler(ICarServiceRepository carServiceRepository, ICarRepository carRepository, IClientRepository clientRepository)
+        public AddCarServiceCommandHandler(
+            ICarServiceRepository carServiceRepository,
+            ICarRepository carRepository, 
+            IClientRepository clientRepository, 
+            ILogger<AddCarServiceCommandHandler> logger)
         {
             _carServiceRepository = carServiceRepository;
             _carRepository = carRepository;
             _clientRepository = clientRepository;
+            _logger = logger;
         }
 
         public async Task<CarServiceResponse> Handle(AddCarServiceCommand request, CancellationToken cancellationToken)
@@ -40,7 +46,7 @@ namespace CarAcademyProject.CommandHandlers.CarServiceHandler
             };
 
             await _carServiceRepository.AddCarService(carService);
-
+            _logger.LogInformation($"The Car Service : {carService.Id} / {DateTime.UtcNow} {carService.ManipulationDescription} was added to SQL DB");
             return new CarServiceResponse() { HttpStatusCode = System.Net.HttpStatusCode.OK, CarService = carService };
         }
     }

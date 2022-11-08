@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using CarAcademyProjectModels;
 using CarAcademyProjectModels.Request;
+using CarAcademyProjectModels.Response;
 
 namespace CarAcademyProject.AutoMapping
 {
@@ -11,6 +12,8 @@ namespace CarAcademyProject.AutoMapping
             CreateMap<AddCarRequest, Car>();
             CreateMap<ClientRequest, Client>();
             CreateMap<PublishCarServiceRequest, CarServiceRquest>();
+            CreateMap<PublishCarServiceRequest, MongoCarService>();
+            CreateMap<MongoCarService, CarServiceRquest>();
         }
     }
 }
