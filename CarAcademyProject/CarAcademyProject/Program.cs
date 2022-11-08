@@ -33,6 +33,10 @@ namespace CarAcademyProject
                 builder.Configuration.GetSection(nameof(KafkaConsumerSettings)));
             builder.Services.Configure<HighLevelCarPublisherSettings>(
                 builder.Configuration.GetSection(nameof(HighLevelCarPublisherSettings)));
+            builder.Services.Configure<HighLevelCarConsumerSettings>(
+                builder.Configuration.GetSection(nameof(HighLevelCarConsumerSettings)));
+            builder.Services.Configure<MongoDbConfigurator>(
+                builder.Configuration.GetSection(nameof(MongoDbConfigurator)));
 
             // Add services to the container.
             builder.Services.RegisterRepositories()
@@ -56,6 +60,7 @@ namespace CarAcademyProject
             builder.Services.AddMediatR(typeof(AddCarCommandHandler).Assembly);
 
             builder.Services.AddHostedService<KafkaCarServiceSubscriber>();
+            builder.Services.AddHostedService<HighLevelServiceSubscriber>();
 
             var app = builder.Build();
 

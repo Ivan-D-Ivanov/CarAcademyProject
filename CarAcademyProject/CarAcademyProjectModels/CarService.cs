@@ -3,7 +3,6 @@ using MessagePack;
 
 namespace CarAcademyProjectModels
 {
-    [MessagePackObject]
     public class CarService
     {
         public int Id { get; set; }

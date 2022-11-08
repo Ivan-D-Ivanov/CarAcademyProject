@@ -1,8 +1,6 @@
-﻿using CarAcademyProject.CarAcademyProjectBL.CarPublishService;
-using CarAcademyProjectBL.BusinesService;
+﻿using CarAcademyProjectBL.BusinesService;
 using CarAcademyProjectBL.DataFlowService;
-using CarAcademyProjectBL.Services;
-using CarAcademyProjectModels.Request;
+using CarAcademyProjectBL.HighLevelServices;
 
 namespace CarAcademyProject.Extensions
 {
@@ -12,6 +10,8 @@ namespace CarAcademyProject.Extensions
         {
             services.AddSingleton<IRepostService, ReportService>();
             services.AddSingleton<CarServiceDataFlow>();
+            services.AddSingleton<HighLevelServiceDataFlow>();
+            services.AddSingleton<HighLevelRepoService>();
             return services;
         }
     }

@@ -1,4 +1,5 @@
-﻿using CarAcademyProjectDL.RepoInterfaces;
+﻿using CarAcademyProjectDL.MongoRepo;
+using CarAcademyProjectDL.RepoInterfaces;
 using CarAcademyProjectDL.Repositories;
 
 namespace CarAcademyProject.Extensions
@@ -11,6 +12,7 @@ namespace CarAcademyProject.Extensions
             services.AddSingleton<ICarRepository, CarRepository>();
             services.AddSingleton<IClientRepository, ClientRepository>();
             services.AddSingleton<ICarServiceRepository, CarServiceRepository>();
+            services.AddSingleton<IHighLevelServicesRepository, HighLevelServicesRepository>();
 
             return services;
         }
