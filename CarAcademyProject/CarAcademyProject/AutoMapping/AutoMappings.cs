@@ -5,7 +5,7 @@ using CarAcademyProjectModels.Response;
 
 namespace CarAcademyProject.AutoMapping
 {
-    internal class AutoMappings : Profile
+    public class AutoMappings : Profile
     {
         public AutoMappings()
         {

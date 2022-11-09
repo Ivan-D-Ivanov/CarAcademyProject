@@ -1,4 +1,5 @@
-﻿using CarAcademyProjectModels;
+﻿using System.Net;
+using CarAcademyProjectModels;
 using CarAcademyProjectModels.MediatR.ClientCommands;
 using CarAcademyProjectModels.Request;
 using MediatR;
@@ -21,15 +22,16 @@ namespace CarAcademyProject.Controllers
         }
 
         [HttpGet(nameof(GetAllClients))]
-        public async Task<IEnumerable<Client>> GetAllClients()
+        public async Task<IActionResult> GetAllClients()
         {
-            return await _mediator.Send(new GetAllClientsCommand());
+            return Ok(await _mediator.Send(new GetAllClientsCommand()));
         }
 
         [HttpPost(nameof(AddClient))]
         public async Task<IActionResult> AddClient(ClientRequest client)
         {
             var result = await _mediator.Send(new AddClientCommand(client));
+            if (result.HttpStatusCode == HttpStatusCode.BadRequest) return BadRequest(result);
             return Ok(result);
         }
 
@@ -37,6 +39,7 @@ namespace CarAcademyProject.Controllers
         public async Task<IActionResult> UpdateClientByName(ClientRequest client)
         {
             var result = await _mediator.Send(new UpdateClientCommand(client));
+            if (result.HttpStatusCode == HttpStatusCode.BadRequest) return BadRequest(result);
             return Ok(result);
         }
 
@@ -44,6 +47,7 @@ namespace CarAcademyProject.Controllers
         public async Task<IActionResult> DeleteClient(string name)
         {
             var result = await _mediator.Send(new DeleteClientCommand(name));
+            if (result.HttpStatusCode == HttpStatusCode.BadRequest) return BadRequest(result);
             return Ok(result);
         }
     }
