@@ -19,7 +19,7 @@ namespace CarAcademyProject.CommandHandlers.ClientHandlers
             if (request == null) return new ClientResponse() { HttpStatusCode = System.Net.HttpStatusCode.BadRequest, Message = "The request is empty" };
 
             var result = await _clientRepository.GetClientByName(request._clientName);
-            if (result == null) return new ClientResponse() { HttpStatusCode = System.Net.HttpStatusCode.BadRequest, Message = "This car does not exists" };
+            if (result == null) return new ClientResponse() { HttpStatusCode = System.Net.HttpStatusCode.BadRequest, Message = "This client does not exists" };
 
             await _clientRepository.DeleteClient(result.Id);
             return new ClientResponse() { HttpStatusCode = System.Net.HttpStatusCode.OK, Client = result };
